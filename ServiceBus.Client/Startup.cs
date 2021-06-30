@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +28,10 @@ namespace ServiceBus.Client
         {
             services.AddControllersWithViews();
             services.AddTransient<IEmailQueueBusService, EmailQueueBusService>();
+            //Get connection string and Queue name from the appsetting
+                //Initializing/connecting to Queue
+            services.AddSingleton<IQueueClient>(x => new QueueClient(Configuration.GetValue<string>("AzureServiceBus:AzureServiceBusConnection"),
+                Configuration.GetValue<string>("AzureServiceBus:QueueName")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

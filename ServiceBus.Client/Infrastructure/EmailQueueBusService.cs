@@ -13,26 +13,27 @@ namespace ServiceBus.Client.Infrastructure
 {
     class EmailQueueBusService : IEmailQueueBusService
     {
-        public IConfiguration _config{ get; }
+        public IQueueClient _queueClient { get; }
 
-        public EmailQueueBusService(IConfiguration configuration)
+        public EmailQueueBusService(IQueueClient queueClient)
         {
-            _config = configuration;
+            this._queueClient = queueClient;
         }
        
         public async Task SendEmailAsync(Email email)
         {
-            //Get connection string and Queue name from the appsetting
-            string connection = _config.GetValue<string>("AzureServiceBus:AzureServiceBusConnection");
-            string queueName = _config.GetValue<string>("AzureServiceBus:QueueName").ToString();
+            try
+            {
+                //convert object into json and initialize the queue message
+                var msg = new Message(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(email)));
 
-            //Initializing/connecting to Queue
-            var queueClient = new QueueClient(connection, queueName);
+                await _queueClient.SendAsync(msg);
+            }
+            catch (Exception)
+            {
 
-            //convert object into json and initialize the queue message
-            var msg = new Message(Encoding.UTF8.GetBytes( JsonSerializer.Serialize(email)));
-
-            await queueClient.SendAsync(msg);
+                throw;
+            }
 
         }
     }
