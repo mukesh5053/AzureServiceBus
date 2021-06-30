@@ -1,0 +1,34 @@
+﻿@model ServiceBus.SharedLib.Email
+
+@{
+    ViewData["Title"] = "Send Email";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <form asp-action="Index" asp-controller="Home" method="POST">
+            <div class="form-group">
+                <label>EmailTo</label>
+                <input asp-for="EmailTo" type="text" class="form-control" />
+                @Html.ValidationMessageFor(model => model.EmailTo, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Subject</label>
+                <input asp-for="Subject" type="text" class="form-control" />
+
+            </div>
+
+            <div class="form-group">
+                <label>Message</label>
+                <input asp-for="Body" type="text" class="form-control" />
+                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</div>
