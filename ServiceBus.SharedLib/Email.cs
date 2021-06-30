@@ -3,15 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ServiceBus.SharedLib
 {
-    public class Email
-    {
-        [Required, EmailAddress]
-        public string EmailTo { get; set; }
+    public record  Email ([Required, EmailAddress]string EmailTo, string Subject, [Required]string Body );
 
-        public string Subject { get; set; }
-
-        [Required]
-        public string Body { get; set; }
-
-    }
+    
 }
