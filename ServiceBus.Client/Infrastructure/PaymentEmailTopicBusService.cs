@@ -12,21 +12,21 @@ using System.Threading.Tasks;
 
 namespace ServiceBus.Client.Infrastructure
 {
-    class EmailQueueBusService : IEmailQueueBusService
+    class PaymentEmailTopicBusService : IPaymentEmailTopicBusService
     {
         public IMessagePublisher _messagePublisher { get; }
 
-        public EmailQueueBusService(IMessagePublisher messagePublisher)
+        public PaymentEmailTopicBusService(IMessagePublisher messagePublisher)
         {
             _messagePublisher = messagePublisher;
         }
 
 
-        public async Task SendEmailAsync(Email email)
+        public async Task SendEmailAsync(PaymentEmail email)
         {
             try
             {
-                await _messagePublisher.Queue(email);
+              await _messagePublisher.PublishTopics(email);
             }
             catch (Exception)
             {
@@ -35,5 +35,20 @@ namespace ServiceBus.Client.Infrastructure
             }
 
         }
+
+        public async Task SendReminderEmailAsync(PaymentReminderEmail email)
+        {
+            try
+            {
+                await _messagePublisher.PublishTopics(email);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
     }
 }

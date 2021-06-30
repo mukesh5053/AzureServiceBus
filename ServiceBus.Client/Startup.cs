@@ -1,16 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServiceBus.Client.Infrastructure;
 using ServiceBus.Client.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ServiceBus.Client.Infrastructure.Services;
 
 namespace ServiceBus.Client
 {
@@ -27,11 +22,13 @@ namespace ServiceBus.Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddTransient<IEmailQueueBusService, EmailQueueBusService>();
             //Get connection string and Queue name from the appsetting
-                //Initializing/connecting to Queue
-            services.AddSingleton<IQueueClient>(x => new QueueClient(Configuration.GetValue<string>("AzureServiceBus:AzureServiceBusConnection"),
-                Configuration.GetValue<string>("AzureServiceBus:QueueName")));
+            //Initializing/connecting to Queue
+            services.AddScoped<IMessagePublisher>(x => new MessagePublisher(Configuration.GetValue<string>("AzureServiceBus:AzureServiceBusConnection"),
+                Configuration.GetValue<string>("AzureServiceBus:QueueName"),
+                Configuration.GetValue<string>("AzureServiceBus:TopicName")));
+            services.AddScoped<IEmailQueueBusService, EmailQueueBusService>();
+                services.AddScoped<IPaymentEmailTopicBusService, PaymentEmailTopicBusService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

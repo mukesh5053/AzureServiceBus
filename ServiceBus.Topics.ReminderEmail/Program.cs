@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Azure.ServiceBus;
+﻿using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using ServiceBus.SharedLib;
 using System;
@@ -8,21 +7,22 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ServiceBus.Queue
+namespace ServiceBus.Topics.ReminderEmail
 {
     class Program
     {
-
-        static IQueueClient qClient;
+        static ISubscriptionClient subscriptionClient;
 
         static async Task Main(string[] args)
         {
-            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json",true,true);
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true);
             var config = builder.Build();
             string serviceBusConnection = config["AzureServiceBusConnection"];
-            string queueName = config["QueueName"];
+            string topicName = config["TopicName"];
+            string subscriptionName = config["SubscriptioName"];
 
-            qClient = new QueueClient(serviceBusConnection, queueName);
+
+            subscriptionClient = new SubscriptionClient(serviceBusConnection, topicName, subscriptionName, ReceiveMode.PeekLock);
 
             var msgOptions = new MessageHandlerOptions(ExceptionReceivedHandler)
             {
@@ -33,18 +33,18 @@ namespace ServiceBus.Queue
                 AutoComplete = false,
             };
 
-            qClient.RegisterMessageHandler(SendEmailAsync, msgOptions);
+            subscriptionClient.RegisterMessageHandler(SendEmailAsync, msgOptions);
             Console.ReadLine();
-            await qClient.CloseAsync();
+            await subscriptionClient.CloseAsync();
         }
 
         private static async Task SendEmailAsync(Message _message, CancellationToken _token)
         {
             //deserialize request/message from
             var message = Encoding.UTF8.GetString(_message.Body);
-            Email email = JsonSerializer.Deserialize<Email>(message);
-            await Helper.SendEmail(email);
-            await qClient.CompleteAsync(_message.SystemProperties.LockToken);
+            SharedLib.PaymentReminderEmail email = JsonSerializer.Deserialize<SharedLib.PaymentReminderEmail>(message);
+            await Helper.SendReminderEmail(email);
+            await subscriptionClient.CompleteAsync(_message.SystemProperties.LockToken);
 
         }
 
@@ -53,8 +53,5 @@ namespace ServiceBus.Queue
             Console.WriteLine($"Something went wrong, {args.Exception}");
             return Task.CompletedTask;
         }
-
-       
-
     }
 }

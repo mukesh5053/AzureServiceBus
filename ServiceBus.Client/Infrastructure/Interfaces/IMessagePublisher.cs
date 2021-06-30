@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace ServiceBus.Client.Infrastructure.Interfaces
 {
-    public interface IEmailQueueBusService
+    public interface IMessagePublisher
     {
-        Task SendEmailAsync(Email email);
+         Task Queue<T>(T obj);
+        Task PublishTopics<T>(T obj);
+
+
     }
 }

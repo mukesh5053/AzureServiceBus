@@ -9,13 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceBus.Queue", "Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceBus.Topics", "ServiceBus.Topics", "{AC46829C-E9F9-4B25-94B6-1A65CB025D33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBus.Client", "ServiceBus.Client\ServiceBus.Client.csproj", "{ED494E7B-D5F7-45D6-A88B-FF52CFD4BAB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBus.Client", "ServiceBus.Client\ServiceBus.Client.csproj", "{ED494E7B-D5F7-45D6-A88B-FF52CFD4BAB8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceBus.SharedLib", "ServiceBus.SharedLib", "{22E11919-962B-4110-92C6-8C383470EECB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBus.SharedLib", "ServiceBus.SharedLib\ServiceBus.SharedLib.csproj", "{D8E77975-B581-4236-9421-04EDF8D1FA27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBus.SharedLib", "ServiceBus.SharedLib\ServiceBus.SharedLib.csproj", "{D8E77975-B581-4236-9421-04EDF8D1FA27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBus.Queue", "ServiceBus.Queue\ServiceBus.Queue.csproj", "{B24AD38C-EB30-424D-BEAB-2A6B0B2E64D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceBus.Queue", "ServiceBus.Queue\ServiceBus.Queue.csproj", "{B24AD38C-EB30-424D-BEAB-2A6B0B2E64D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBus.Topics.PaymentEmail", "ServiceBus.Topics.PaymentEmail\ServiceBus.Topics.PaymentEmail.csproj", "{9792C997-ED52-4063-A263-13C5EF575593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceBus.Topics.ReminderEmail", "ServiceBus.Topics.ReminderEmail\ServiceBus.Topics.ReminderEmail.csproj", "{3A0DDEE8-91A0-4E29-B715-FAEA7926D795}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,14 @@ Global
 		{B24AD38C-EB30-424D-BEAB-2A6B0B2E64D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B24AD38C-EB30-424D-BEAB-2A6B0B2E64D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B24AD38C-EB30-424D-BEAB-2A6B0B2E64D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9792C997-ED52-4063-A263-13C5EF575593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9792C997-ED52-4063-A263-13C5EF575593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9792C997-ED52-4063-A263-13C5EF575593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9792C997-ED52-4063-A263-13C5EF575593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A0DDEE8-91A0-4E29-B715-FAEA7926D795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A0DDEE8-91A0-4E29-B715-FAEA7926D795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A0DDEE8-91A0-4E29-B715-FAEA7926D795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A0DDEE8-91A0-4E29-B715-FAEA7926D795}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +55,8 @@ Global
 		{ED494E7B-D5F7-45D6-A88B-FF52CFD4BAB8} = {1C73E874-C8C0-4820-8E61-DACD033AE28D}
 		{D8E77975-B581-4236-9421-04EDF8D1FA27} = {22E11919-962B-4110-92C6-8C383470EECB}
 		{B24AD38C-EB30-424D-BEAB-2A6B0B2E64D3} = {65E744AE-962A-4529-8D5A-975A06898FD7}
+		{9792C997-ED52-4063-A263-13C5EF575593} = {AC46829C-E9F9-4B25-94B6-1A65CB025D33}
+		{3A0DDEE8-91A0-4E29-B715-FAEA7926D795} = {AC46829C-E9F9-4B25-94B6-1A65CB025D33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9E704FA-F9E8-4293-B971-EBEA1C3E2DB4}

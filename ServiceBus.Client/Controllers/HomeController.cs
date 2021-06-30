@@ -14,12 +14,12 @@ namespace ServiceBus.Client.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IEmailQueueBusService emailQueueBusService;
+        private readonly IEmailQueueBusService _emailQueueBusService;
 
         public HomeController(ILogger<HomeController> logger, IEmailQueueBusService emailQueueBusService)
         {
             _logger = logger;
-            this.emailQueueBusService = emailQueueBusService;
+            this._emailQueueBusService = emailQueueBusService;
         }
 
         public IActionResult Index()
@@ -38,10 +38,10 @@ namespace ServiceBus.Client.Controllers
             if (!ModelState.IsValid)
                 return View(email);
 
-            emailQueueBusService.SendEmailAsync(email);
+            _emailQueueBusService.SendEmailAsync(email);
            return View("Success");
         }
- 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

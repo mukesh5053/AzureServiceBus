@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace ServiceBus.Client.Infrastructure.Interfaces
 {
-    public interface IEmailQueueBusService
+    public interface IPaymentEmailTopicBusService 
     {
-        Task SendEmailAsync(Email email);
+        Task SendEmailAsync(PaymentEmail email);
+
+        Task SendReminderEmailAsync(PaymentReminderEmail email);
     }
 }

@@ -1,0 +1,36 @@
+﻿@model ServiceBus.SharedLib.PaymentEmail;
+
+@{
+    ViewData["Title"] = "Send Email";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <form asp-action="Topic" asp-controller="Topic" method="POST">
+            <div class="form-group">
+                <label>EmailTo</label>
+                <input asp-for="EmailTo" type="text" class="form-control" />
+                @Html.ValidationMessageFor(model => model.EmailTo, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Amount</label>
+                <input asp-for="Amount" type="text" class="form-control" />
+                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                <label>Message</label>
+                <input asp-for="Message" type="text" class="form-control" />
+
+            </div>
+
+            <button type="submit" formaction="Topic" class="btn btn-primary">Send Payment Confirmation Mail</button>
+            <button type="submit" formaction="TopicReminder" class="btn btn-primary">Send Reminder Email</button>
+        </form>
+    </div>
+
+</div>
